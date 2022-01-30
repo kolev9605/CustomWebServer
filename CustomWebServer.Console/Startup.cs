@@ -20,6 +20,7 @@ public static class Startup
             .MapPost("/Content", new TextFileResponse("content.txt"))
             .MapPost("/Content", new TextFileResponse("content.txt"))
             .MapGet("/Cookies", new HtmlResponse("", AddCookiesAction))
+            .MapGet("/Session", new TextResponse("", DisplaySessionInfoAction))
         );
 
         await server.Start();
@@ -82,6 +83,25 @@ public static class Startup
         if (!request.Cookies.Any())
         {
             response.Cookies.Add("My-Cookie", "My-Value");
+        }
+
+        response.Body = bodyText;
+    }
+
+    private static void DisplaySessionInfoAction(Request request, Response response)
+    {
+        var sessionExists = request.Session
+            .ContainsKey(Constants.Session.SessionCurrentDateKey);
+
+        var bodyText = string.Empty;
+        if (sessionExists)
+        {
+            var currentDate = request.Session[Constants.Session.SessionCurrentDateKey];
+            bodyText = $"Stored date: {currentDate}";
+        }
+        else
+        {
+            bodyText = "Current date stored!";
         }
 
         response.Body = bodyText;
