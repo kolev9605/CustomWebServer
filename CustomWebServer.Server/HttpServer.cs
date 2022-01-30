@@ -55,10 +55,6 @@ public class HttpServer
                 var request = Request.Parse(requestText);
 
                 var response = _routingTable.MatchRequest(request);
-                if (response.PreRenderAction != null)
-                {
-                    response.PreRenderAction(request, response);
-                }
 
                 AddSession(request, response);
 
@@ -71,9 +67,7 @@ public class HttpServer
 
     private void AddSession(Request request, Response response)
     {
-        var sessionExists = request.Session.ContainsKey(Constants.Session.SessionCurrentDateKey);
-
-        if (!sessionExists)
+        if (!request.Session.ContainsKey(Constants.Session.SessionCurrentDateKey))
         {
             request.Session[Constants.Session.SessionCurrentDateKey] = DateTime.Now.ToString();
             response.Cookies.Add(Constants.Session.SessionCookieName, request.Session.Id);

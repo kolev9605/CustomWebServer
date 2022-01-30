@@ -23,4 +23,7 @@ public class Session
 
     public bool ContainsKey(string key)
         => _data.ContainsKey(key);
+
+    public void Clear()
+        => _data.Clear();
 }

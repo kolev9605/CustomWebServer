@@ -18,6 +18,7 @@ public static class Constants
     {
         public const string SessionCookieName = "MyWebServerSID";
         public const string SessionCurrentDateKey = "CurrentDate";
+        public const string SessionUserKey = "Authenticate";
     }
 
     public static class ContentType
@@ -30,20 +31,5 @@ public static class Constants
     public static class Server
     {
         public const string LocalhostIp = "127.0.0.1";
-    }
-
-    public static class Forms
-    {
-        public const string HtmlForm = @"
-<form action='/HTML' method='POST'>
-    Name: <input type='text' name='Name'/>
-    Age: <input type='number' name='Age'/>
-    <input type='submit' value = 'Save'/>
-</form>";
-
-        public const string DownloadForm = @"
-<form action ='/Content' method='Post'>
-    <input type='submit' value='Download Sites Content' />
-</form>";
     }
 }
