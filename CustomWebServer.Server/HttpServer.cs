@@ -61,7 +61,6 @@ public class HttpServer
                 await WriteResponseAsync(networkStream, response);
                 connection.Close();
             });
-
         }
     }
 
