@@ -1,5 +1,6 @@
 ﻿using CustomWebServer.Core;
 using CustomWebServer.Server.HTTP;
+using CustomWebServer.Server.HTTP.Collections;
 using System.Text;
 
 namespace CustomWebServer.Server.Responses;

@@ -1,18 +1,13 @@
 ﻿using CustomWebServer.Core;
+using CustomWebServer.Server.Controllers;
 using CustomWebServer.Server.HTTP;
+using CustomWebServer.Server.HTTP.Collections;
 using CustomWebServer.Server.Responses;
 
-namespace CustomWebServer.Server.Controllers;
+namespace CustomWebServer.Console.Controllers;
 
 public class UserController : Controller
 {
-    private const string LoginForm = @"
-<form action ='/Login' method='Post'>
-    <input type='text' name='Username' />
-    <input type='text' name='Password' />
-    <input type='submit' value='Log In' />
-</form>";
-
     private const string Username = "user";
     private const string Password = "user123";
 
@@ -21,10 +16,7 @@ public class UserController : Controller
     {
     }
 
-    public Response Login()
-    {
-        return Html(LoginForm);
-    }
+    public Response Login() => View();
 
     public Response LoginUser()
     {

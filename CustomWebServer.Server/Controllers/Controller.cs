@@ -1,5 +1,7 @@
 ﻿using CustomWebServer.Server.HTTP;
+using CustomWebServer.Server.HTTP.Collections;
 using CustomWebServer.Server.Responses;
+using System.Runtime.CompilerServices;
 
 namespace CustomWebServer.Server.Controllers;
 
@@ -17,7 +19,7 @@ public class Controller
     protected Response Html(string text, CookieCollection cookies = null)
     {
         var response = new HtmlResponse(text);
-        
+
         if (cookies != null)
         {
             foreach (var cookie in cookies)
@@ -38,5 +40,11 @@ public class Controller
     protected Response Redirect(string location) => new RedirectResponse(location);
 
     protected Response File(string fileName) => new TextFileResponse(fileName);
+
+    protected Response View([CallerMemberName] string viewName = "")
+        => new ViewResponse(viewName, GetControllerName());
+
+    private string GetControllerName()
+        => GetType().Name.Replace(nameof(Controller), string.Empty);
 }
 

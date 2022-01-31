@@ -1,6 +1,6 @@
 ﻿using System.Collections;
 
-namespace CustomWebServer.Server.HTTP;
+namespace CustomWebServer.Server.HTTP.Collections;
 
 public class HeaderCollection : IEnumerable<Header>
 {

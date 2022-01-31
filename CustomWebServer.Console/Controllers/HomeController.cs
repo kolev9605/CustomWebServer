@@ -1,25 +1,15 @@
 ﻿using CustomWebServer.Core;
+using CustomWebServer.Server.Controllers;
 using CustomWebServer.Server.HTTP;
+using CustomWebServer.Server.HTTP.Collections;
 using CustomWebServer.Server.Responses;
 using System.Text;
 using System.Web;
 
-namespace CustomWebServer.Server.Controllers;
+namespace CustomWebServer.Console.Controllers;
 
 public class HomeController : Controller
 {
-    private const string HtmlForm = @"
-<form action='/HTML' method='POST'>
-    Name: <input type='text' name='Name'/>
-    Age: <input type='number' name='Age'/>
-    <input type='submit' value = 'Save'/>
-</form>";
-
-    private const string DownloadForm = @"
-<form action ='/Content' method='Post'>
-    <input type='submit' value='Download Sites Content' />
-</form>";
-
     private const string FileName = "content.txt";
 
     public HomeController(Request request)
@@ -37,10 +27,7 @@ public class HomeController : Controller
         return Redirect("https://softuni.org");
     }
 
-    public Response HtmlGet()
-    {
-        return Html(HtmlForm);
-    }
+    public Response Html() => View();
 
     public Response HtmlPost()
     {
@@ -54,10 +41,7 @@ public class HomeController : Controller
         return Text(formData);
     }
 
-    public Response Content()
-    {
-        return Html(DownloadForm);
-    }
+    public Response Content() => View();
 
     public Response ContentPost()
     {

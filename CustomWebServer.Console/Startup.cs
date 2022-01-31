@@ -1,5 +1,5 @@
 ﻿using CustomWebServer.Server;
-using CustomWebServer.Server.Controllers;
+using CustomWebServer.Console.Controllers;
 using CustomWebServer.Server.Routing;
 
 public static class Startup
@@ -9,7 +9,7 @@ public static class Startup
         await new HttpServer(routes => routes
             .MapGet<HomeController>("/", c => c.Index())
             .MapGet<HomeController>("/Redirect", c => c.Redirect())
-            .MapGet<HomeController>("/Html", c => c.HtmlGet())
+            .MapGet<HomeController>("/Html", c => c.Html())
             .MapPost<HomeController>("/Html", c => c.HtmlPost())
             .MapGet<HomeController>("/Content", c => c.Content())
             .MapPost<HomeController>("/Content", c => c.ContentPost())
