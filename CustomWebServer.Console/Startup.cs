@@ -10,7 +10,7 @@ public static class Startup
             .MapGet<HomeController>("/", c => c.Index())
             .MapGet<HomeController>("/Redirect", c => c.Redirect())
             .MapGet<HomeController>("/Html", c => c.Html())
-            .MapPost<HomeController>("/Html", c => c.HtmlPost())
+            .MapPost<HomeController>("/Html", c => c.HtmlFormPost())
             .MapGet<HomeController>("/Content", c => c.Content())
             .MapPost<HomeController>("/Content", c => c.ContentPost())
             .MapGet<HomeController>("/Cookies", c => c.Cookies())

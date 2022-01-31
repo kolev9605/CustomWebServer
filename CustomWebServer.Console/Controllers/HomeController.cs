@@ -1,4 +1,5 @@
-﻿using CustomWebServer.Core;
+﻿using CustomWebServer.Console.Models;
+using CustomWebServer.Core;
 using CustomWebServer.Server.Controllers;
 using CustomWebServer.Server.HTTP;
 using CustomWebServer.Server.HTTP.Collections;
@@ -29,16 +30,17 @@ public class HomeController : Controller
 
     public Response Html() => View();
 
-    public Response HtmlPost()
+    public Response HtmlFormPost()
     {
-        string formData = string.Empty;
-        foreach (var pair in Request.Form)
+        var name = Request.Form["Name"];
+        var age = Request.Form["Age"];
+        var model = new FormViewModel()
         {
-            formData += $"{pair.Key} - {pair.Value}";
-            formData += Environment.NewLine;
-        }
+            Name = name,
+            Age = int.Parse(age),
+        };
 
-        return Text(formData);
+        return View(model: model);
     }
 
     public Response Content() => View();
@@ -125,11 +127,6 @@ public class HomeController : Controller
         var responseString = string.Join(Environment.NewLine + new string('-', 100), response);
 
         await System.IO.File.WriteAllTextAsync(fileName, responseString);
-    }
-
-    private void AddCookiesAction()
-    {
-
     }
 }
 
