@@ -52,9 +52,13 @@ public class HttpServer
                 var networkStream = connection.GetStream();
 
                 var requestText = await ReadRequestAsync(networkStream);
+                Console.WriteLine("Request:");
+                Console.WriteLine(requestText);
                 var request = Request.Parse(requestText);
 
                 var response = _routingTable.MatchRequest(request);
+                Console.WriteLine("Response:");
+                Console.WriteLine(response.ToString());
 
                 AddSession(request, response);
 
