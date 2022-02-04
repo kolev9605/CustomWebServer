@@ -4,6 +4,10 @@ namespace CustomWebServer.Server.HTTP;
 
 public class Session
 {
+    public const string SessionCookieName = "MyWebServerSID";
+    public const string SessionCurrentDateKey = "CurrentDate";
+    public const string SessionUserKey = "Authenticate";
+
     private Dictionary<string, string> _data;
 
     public Session(string id)

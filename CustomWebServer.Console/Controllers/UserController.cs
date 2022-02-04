@@ -27,12 +27,12 @@ public class UserController : Controller
 
         if (usernameMatches && passwordMatches)
         {
-            if (!Request.Session.ContainsKey(Constants.Session.SessionUserKey))
+            if (!Request.Session.ContainsKey(Session.SessionUserKey))
             {
-                Request.Session[Constants.Session.SessionUserKey] = "MyUserId";
+                Request.Session[Session.SessionUserKey] = "MyUserId";
 
                 var cookies = new CookieCollection();
-                cookies.Add(Constants.Session.SessionCookieName, Request.Session.Id);
+                cookies.Add(Session.SessionCookieName, Request.Session.Id);
 
                 return Html("<h3>Logged successfully!</h3>", cookies);
             }
@@ -52,7 +52,7 @@ public class UserController : Controller
 
     public Response GetUserData()
     {
-        if (Request.Session.ContainsKey(Constants.Session.SessionUserKey))
+        if (Request.Session.ContainsKey(Session.SessionUserKey))
         {
             return Text($"Current logged in user: {Username}.");
         }

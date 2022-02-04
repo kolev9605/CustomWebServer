@@ -70,10 +70,10 @@ public class HttpServer
 
     private void AddSession(Request request, Response response)
     {
-        if (!request.Session.ContainsKey(Constants.Session.SessionCurrentDateKey))
+        if (!request.Session.ContainsKey(Session.SessionCurrentDateKey))
         {
-            request.Session[Constants.Session.SessionCurrentDateKey] = DateTime.Now.ToString();
-            response.Cookies.Add(Constants.Session.SessionCookieName, request.Session.Id);
+            request.Session[Session.SessionCurrentDateKey] = DateTime.Now.ToString();
+            response.Cookies.Add(Session.SessionCookieName, request.Session.Id);
         }
     }
 

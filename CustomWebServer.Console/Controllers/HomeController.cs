@@ -56,7 +56,7 @@ public class HomeController : Controller
     public Response Cookies()
     {
         var bodyText = string.Empty;
-        if (Request.Cookies.Any(c => c.Name != Constants.Session.SessionCookieName))
+        if (Request.Cookies.Any(c => c.Name != Server.HTTP.Session.SessionCookieName))
         {
             var cookieText = new StringBuilder();
             cookieText.AppendLine("<h1>Cookies</h1>");
@@ -84,12 +84,12 @@ public class HomeController : Controller
     public Response Session()
     {
         var sessionExists = Request.Session
-            .ContainsKey(Constants.Session.SessionCurrentDateKey);
+            .ContainsKey(Server.HTTP.Session.SessionCurrentDateKey);
 
         var bodyText = string.Empty;
         if (sessionExists)
         {
-            var currentDate = Request.Session[Constants.Session.SessionCurrentDateKey];
+            var currentDate = Request.Session[Server.HTTP.Session.SessionCurrentDateKey];
             bodyText = $"Stored date: {currentDate}";
         }
         else

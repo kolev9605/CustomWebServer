@@ -14,13 +14,6 @@ public static class Constants
         public const string SetCookie = "Set-Cookie";
     }
 
-    public static class Session
-    {
-        public const string SessionCookieName = "MyWebServerSID";
-        public const string SessionCurrentDateKey = "CurrentDate";
-        public const string SessionUserKey = "Authenticate";
-    }
-
     public static class ContentType
     {
         public const string PlainText = "text/plain; charset=UTF-8";
