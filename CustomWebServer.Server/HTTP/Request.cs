@@ -22,13 +22,14 @@ public class Request
 
     public IReadOnlyDictionary<string, string> Form { get; private set; }
 
+    public IReadOnlyDictionary<string, string> Query { get; private set; }
 
     public static Request Parse(string request)
     {
         var lines = request.Split("\r\n");
         var startLine = lines.First().Split(" ");
         var method = ParseMethod(startLine[0]);
-        var url = startLine[1];
+        var parsedUrl = ParseUrl(startLine[1]);
         var headers = ParseHeaders(lines.Skip(1));
         var cookies = ParseCookies(headers);
         var session = GetSession(cookies);
@@ -39,13 +40,40 @@ public class Request
         return new Request
         {
             Method = method,
-            Url = url,
+            Url = parsedUrl.url,
             Headers = headers,
             Cookies = cookies,
             Body = body,
             Session = session,
             Form = form,
+            Query = parsedUrl.queryParameters
         };
+    }
+
+    private static (string url, Dictionary<string, string> queryParameters) ParseUrl(string fullUrl)
+    {
+        var urlParts = fullUrl.Split('?', 2);
+
+        var path = urlParts[0];
+        var query = new Dictionary<string, string>();
+        if (urlParts.Length == 2)
+        {
+            query = ParseQuery(urlParts[1]);
+        }
+
+        return (path, query);
+    }
+
+    private static Dictionary<string, string> ParseQuery(string queryString)
+    {
+        return HttpUtility.UrlDecode(queryString)
+                .Split('&')
+                .Select(part => part.Split('='))
+                .Where(part => part.Length == 2)
+                .ToDictionary(
+                    part => part[0],
+                    part => part[1],
+                    StringComparer.InvariantCultureIgnoreCase);
     }
 
     private static Session GetSession(CookieCollection cookies)
