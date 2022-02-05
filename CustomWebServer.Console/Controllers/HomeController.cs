@@ -1,4 +1,5 @@
 ﻿using CustomWebServer.Console.Models;
+using CustomWebServer.Server.Attributes;
 using CustomWebServer.Server.Controllers;
 using CustomWebServer.Server.HTTP;
 using CustomWebServer.Server.HTTP.Collections;
@@ -17,18 +18,22 @@ public class HomeController : Controller
     {
     }
 
+    [HttpGet]
     public Response Index()
     {
         return Text("Hello from the Home controller!");
     }
 
+    [HttpGet]
     public Response Redirect()
     {
         return Redirect("https://softuni.org");
     }
 
+    [HttpGet]
     public Response Html() => View();
 
+    [HttpPost]
     public Response HtmlFormPost()
     {
         var name = Request.Form["Name"];
@@ -42,8 +47,10 @@ public class HomeController : Controller
         return View(model: model);
     }
 
+    [HttpGet]
     public Response Content() => View();
 
+    [HttpPost]
     public Response ContentPost()
     {
         DownloadSitesAsTextFile(FileName, new string[] { "https://softuni.org", "https://judge.softuni.org" })
@@ -52,6 +59,7 @@ public class HomeController : Controller
         return File(FileName);
     }
 
+    [HttpGet]
     public Response Cookies()
     {
         var bodyText = string.Empty;
@@ -80,6 +88,7 @@ public class HomeController : Controller
 
     }
 
+    [HttpGet]
     public Response Session()
     {
         var sessionExists = Request.Session
