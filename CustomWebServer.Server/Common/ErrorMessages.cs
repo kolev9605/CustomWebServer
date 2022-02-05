@@ -1,4 +1,4 @@
-﻿namespace CustomWebServer.Core;
+﻿namespace CustomWebServer.Server.Common;
 
 public static class ErrorMessages
 {

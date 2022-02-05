@@ -1,5 +1,4 @@
-﻿using CustomWebServer.Core;
-using CustomWebServer.Server.Common;
+﻿using CustomWebServer.Server.Common;
 using CustomWebServer.Server.HTTP;
 using System.Text;
 

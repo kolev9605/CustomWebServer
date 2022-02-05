@@ -1,6 +1,4 @@
-﻿using CustomWebServer.Core;
-
-namespace CustomWebServer.Server.Common;
+﻿namespace CustomWebServer.Server.Common;
 
 public static class Guard
 {

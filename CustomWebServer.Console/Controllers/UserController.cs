@@ -1,5 +1,4 @@
-﻿using CustomWebServer.Core;
-using CustomWebServer.Server.Controllers;
+﻿using CustomWebServer.Server.Controllers;
 using CustomWebServer.Server.HTTP;
 using CustomWebServer.Server.HTTP.Collections;
 using CustomWebServer.Server.Responses;

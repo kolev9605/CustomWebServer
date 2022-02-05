@@ -1,10 +1,4 @@
-﻿using CustomWebServer.Core;
-using CustomWebServer.Server.HTTP;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using CustomWebServer.Server.Common;
 
 namespace CustomWebServer.Server.Responses;
 

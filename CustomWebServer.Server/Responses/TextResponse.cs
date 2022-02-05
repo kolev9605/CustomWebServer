@@ -1,4 +1,4 @@
-﻿using CustomWebServer.Core;
+﻿using CustomWebServer.Server.Common;
 
 namespace CustomWebServer.Server.Responses;
 

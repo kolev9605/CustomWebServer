@@ -6,8 +6,4 @@
     <Nullable>enable</Nullable>
   </PropertyGroup>
 
-  <ItemGroup>
-    <ProjectReference Include="..\CustomWebServer.Core\CustomWebServer.Core.csproj" />
-  </ItemGroup>
-
 </Project>

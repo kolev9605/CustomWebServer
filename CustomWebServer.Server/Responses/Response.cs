@@ -1,4 +1,4 @@
-﻿using CustomWebServer.Core;
+﻿using CustomWebServer.Server.Common;
 using CustomWebServer.Server.HTTP;
 using CustomWebServer.Server.HTTP.Collections;
 using System.Text;
