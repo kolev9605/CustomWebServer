@@ -1,5 +1,6 @@
 ﻿using CustomWebServer.Server.Common;
 using CustomWebServer.Server.HTTP.Collections;
+using CustomWebServer.Server.Services;
 using System.Web;
 
 namespace CustomWebServer.Server.HTTP;
@@ -24,8 +25,12 @@ public class Request
 
     public IReadOnlyDictionary<string, string> Query { get; private set; }
 
-    public static Request Parse(string request)
+    public static IServiceCollection ServiceCollection { get; private set; }
+
+    public static Request Parse(string request, IServiceCollection serviceCollection)
     {
+        ServiceCollection = serviceCollection;
+
         var lines = request.Split("\r\n");
         var startLine = lines.First().Split(" ");
         var method = ParseMethod(startLine[0]);
@@ -67,13 +72,13 @@ public class Request
     private static Dictionary<string, string> ParseQuery(string queryString)
     {
         return HttpUtility.UrlDecode(queryString)
-                .Split('&')
-                .Select(part => part.Split('='))
-                .Where(part => part.Length == 2)
-                .ToDictionary(
-                    part => part[0],
-                    part => part[1],
-                    StringComparer.InvariantCultureIgnoreCase);
+            .Split('&')
+            .Select(part => part.Split('='))
+            .Where(part => part.Length == 2)
+            .ToDictionary(
+                part => part[0],
+                part => part[1],
+                StringComparer.InvariantCultureIgnoreCase);
     }
 
     private static Session GetSession(CookieCollection cookies)

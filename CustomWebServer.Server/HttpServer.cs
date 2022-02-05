@@ -2,6 +2,7 @@
 using CustomWebServer.Server.HTTP;
 using CustomWebServer.Server.Responses;
 using CustomWebServer.Server.Routing;
+using CustomWebServer.Server.Services;
 using System.Net;
 using System.Net.Sockets;
 using System.Text;
@@ -24,7 +25,10 @@ public class HttpServer
         _tcpListener = new TcpListener(_iPAddress, _port);
 
         routingTableConfiguration(_routingTable = new RoutingTable());
+        SeviceCollection = new ServiceCollection();
     }
+
+    public IServiceCollection SeviceCollection{ get; set; }
 
     public HttpServer(int port, Action<IRoutingTable> routingTableConfiguration)
         : this(Constants.Server.LocalhostIp, port, routingTableConfiguration)
@@ -54,7 +58,7 @@ public class HttpServer
                 var requestText = await ReadRequestAsync(networkStream);
                 Console.WriteLine("Request:");
                 Console.WriteLine(requestText);
-                var request = Request.Parse(requestText);
+                var request = Request.Parse(requestText, SeviceCollection);
 
                 var response = _routingTable.MatchRequest(request);
                 Console.WriteLine("Response:");
