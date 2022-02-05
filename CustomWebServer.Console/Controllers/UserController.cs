@@ -1,4 +1,5 @@
-﻿using CustomWebServer.Server.Controllers;
+﻿using CustomWebServer.Server.Attributes;
+using CustomWebServer.Server.Controllers;
 using CustomWebServer.Server.HTTP;
 using CustomWebServer.Server.HTTP.Collections;
 using CustomWebServer.Server.Responses;
@@ -17,12 +18,13 @@ public class UserController : Controller
 
     public Response Login() => View();
 
-    public Response LoginUser()
+    [HttpPost]
+    public Response LoginUser(string username, string password)
     {
         Request.Session.Clear();
 
-        var usernameMatches = Request.Form["Username"] == Username;
-        var passwordMatches = Request.Form["Password"] == Password;
+        var usernameMatches = username == Username;
+        var passwordMatches = password == Password;
 
         if (usernameMatches && passwordMatches)
         {

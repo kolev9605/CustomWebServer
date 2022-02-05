@@ -119,7 +119,7 @@ public class Request
 
     private static Dictionary<string, string> ParseForm(HeaderCollection headers, string body)
     {
-        var formCollection = new Dictionary<string, string>();
+        var formCollection = new Dictionary<string, string>(StringComparer.InvariantCultureIgnoreCase);
         if (headers.Contains(Constants.HeaderNames.ContentType)
             && headers[Constants.HeaderNames.ContentType] == Constants.ContentType.FormUrlEncoded)
         {

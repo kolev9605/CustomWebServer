@@ -34,10 +34,8 @@ public class HomeController : Controller
     public Response Html() => View();
 
     [HttpPost]
-    public Response HtmlFormPost()
+    public Response HtmlPost(string name, string age)
     {
-        var name = Request.Form["Name"];
-        var age = Request.Form["Age"];
         var model = new FormViewModel()
         {
             Name = name,
