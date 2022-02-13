@@ -1,4 +1,5 @@
-﻿using CustomWebServer.Server.Attributes;
+﻿using CustomWebServer.Console.Services;
+using CustomWebServer.Server.Attributes;
 using CustomWebServer.Server.Controllers;
 using CustomWebServer.Server.HTTP;
 using CustomWebServer.Server.HTTP.Collections;
@@ -8,12 +9,12 @@ namespace CustomWebServer.Console.Controllers;
 
 public class UserController : Controller
 {
-    private const string Username = "user";
-    private const string Password = "user123";
+    private readonly IUserService _userService;
 
-    public UserController(Request request) 
+    public UserController(Request request, IUserService userService) 
         : base(request)
     {
+        _userService = userService;
     }
 
     public Response Login() => View();
@@ -23,14 +24,11 @@ public class UserController : Controller
     {
         Request.Session.Clear();
 
-        var usernameMatches = username == Username;
-        var passwordMatches = password == Password;
-
-        if (usernameMatches && passwordMatches)
+        if (_userService.IsLoginCorrect(username, password))
         {
             if (!Request.Session.ContainsKey(Session.SessionUserKey))
             {
-                Request.Session[Session.SessionUserKey] = "MyUserId";
+                SignIn(Guid.NewGuid().ToString());
 
                 var cookies = new CookieCollection();
                 cookies.Add(Session.SessionCookieName, Request.Session.Id);
@@ -46,19 +44,14 @@ public class UserController : Controller
 
     public Response Logout()
     {
-        Request.Session.Clear();
+        SignOut();
 
         return Html("<h3>Logget out</h3>");
     }
 
     public Response GetUserData()
     {
-        if (Request.Session.ContainsKey(Session.SessionUserKey))
-        {
-            return Text($"Current logged in user: {Username}.");
-        }
-
-        return Redirect("/Login");
+        return Html($"<h3>Currently logged-in user is with id '{User.Id}'</h3>");
     }
 }
 

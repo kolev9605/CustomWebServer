@@ -19,6 +19,7 @@ public class HomeController : Controller
     }
 
     [HttpGet]
+    [Authorize]
     public Response Index(string name)
     {
         return Text($"Hello from the Home controller! {name}");

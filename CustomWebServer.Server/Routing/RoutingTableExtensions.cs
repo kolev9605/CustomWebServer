@@ -67,6 +67,11 @@ public static class RoutingTableExtensions
     {
         return request =>
         {
+            if (!UserIsAuthorized(controllerAction, request.Session))
+            {
+                return new Response(StatusCode.Unauthorized);
+            }
+
             var controllerInstance = CreateController(controllerAction.DeclaringType, request);
             var parameterValues = GetParameterValues(controllerAction, request);
 
@@ -177,5 +182,27 @@ public static class RoutingTableExtensions
         }
     }
 
+    private static bool UserIsAuthorized(
+        MethodInfo controllerAction,
+        Session session)
+        {
+            var authorizationRequired = controllerAction
+                .DeclaringType
+                .GetCustomAttribute<AuthorizeAttribute>()
+                ?? controllerAction
+                .GetCustomAttribute<AuthorizeAttribute>();
 
+            if (authorizationRequired != null)
+            {
+                var userIsAuthorized = session.ContainsKey(Session.SessionUserKey)
+                    && session[Session.SessionUserKey] != null;
+
+                if (!userIsAuthorized)
+                {
+                    return false;
+                }
+            }
+
+            return true;
+    }
 }
