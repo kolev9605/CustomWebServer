@@ -51,6 +51,13 @@ public static class RoutingTableExtensions
             }
 
             routingTable.Map(httpMethod, path, responseFunction);
+
+            MapDefaultRoutes(
+                routingTable,
+                httpMethod,
+                controllerName,
+                actionName,
+                responseFunction);
         }
 
         return routingTable;
@@ -148,4 +155,27 @@ public static class RoutingTableExtensions
     private static string GetValue(this Request request, string parameterName)
         => request.Query.GetValueOrDefault(parameterName) ??
             request.Form.GetValueOrDefault(parameterName);
+
+    private static void MapDefaultRoutes(
+            IRoutingTable routingTable,
+            Method httpMethod,
+            string controllerName,
+            string actionName,
+            Func<Request, Response> responseFunction)
+    {
+        const string defaultActionName = "Index";
+        const string defaultControllerName = "Home";
+
+        if (actionName == defaultActionName)
+        {
+            routingTable.Map(httpMethod, $"/{controllerName}", responseFunction);
+
+            if (controllerName == defaultControllerName)
+            {
+                routingTable.Map(httpMethod, "/", responseFunction);
+            }
+        }
+    }
+
+
 }
